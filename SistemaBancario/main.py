@@ -35,7 +35,6 @@ def transferir(numero_conta_origem, numero_conta_destino, valor):
 def doar(numero_conta, valor):
     if contas[numero_conta]['saldo'] >= valor:
         contas[numero_conta]['saldo'] -= valor
-        # Aqui podemos adicionar o valor à uma conta de doação ou simplesmente removê-lo do sistema.
         return True, "Doação realizada com sucesso."
     else:
         return False, "Saldo insuficiente."
