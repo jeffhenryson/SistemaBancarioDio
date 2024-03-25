@@ -1,6 +1,7 @@
 # Dados das contas bancárias criada.
 contas = {
     '12345': {'senha': 'senha123', 'saldo': 1000},
+    '12346': {'senha': 'senha123', 'saldo': 1000}
 }
 
 def autenticar(numero_conta, senha):
@@ -21,13 +22,16 @@ def depositar(numero_conta, valor):
     return "Depósito realizado com sucesso."
 
 def transferir(numero_conta_origem, numero_conta_destino, valor):
+    if numero_conta_destino not in contas:
+        return False, "Conta de destino não encontrada."
+
     if contas[numero_conta_origem]['saldo'] >= valor:
         contas[numero_conta_origem]['saldo'] -= valor
         contas[numero_conta_destino]['saldo'] += valor
         return True, "Transferência realizada com sucesso."
     else:
         return False, "Saldo insuficiente."
-
+    
 def doar(numero_conta, valor):
     if contas[numero_conta]['saldo'] >= valor:
         contas[numero_conta]['saldo'] -= valor
@@ -57,6 +61,14 @@ def exibir_menu():
     print("6. Sair")
 
 def main():
+    print("Bem-vindo ao Sistema Bancário Simples. Por favor, autentique-se.")
+    numero_conta = input("Digite o número da sua conta: ")
+    senha = input("Digite sua senha: ")
+    
+    if not autenticar(numero_conta, senha):
+        print("Número da conta ou senha inválidos. Encerrando o programa.")
+        return
+    
     while True:
         exibir_menu()
         opcao = input("Escolha uma opção: ")
